@@ -1,27 +1,19 @@
-var HtmlWebpackPlugin = require("html-webpack-plugin");
-var path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const path = require("path");
+
+const base = require("./webpack.config.base.js");
 
 module.exports = {
-  mode: "development",
-  entry: "./src/index.js",
+  ...base,
   devServer: {
     contentBase: "./dist"
   },
-  output: {
-    filename: "index.[contenthash].js"
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      title: "My App1",
-      template: "src/assets/index.html"
-    })
-  ],
   module: {
     rules: [
       {
-        test: /\.css$/,
+        test: /\.css$/i,
         use: ["style-loader", "css-loader"]
-        // 用css-loader处理文件，把文件的内容读到js里面，style-loader，把css-loader读到的东西变成style标签放到header里
       }
     ]
   }
